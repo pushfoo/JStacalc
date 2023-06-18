@@ -1,6 +1,7 @@
 # JStacalc
 
-A Java Port / continuation of my Stacalc project.
+A Java Port / continuation of my [Stacalc](https://github.com/pushfoo/Stacalc) project.
+Built to refresh & demonstrate my Java skills.
 
 Built for:
 
