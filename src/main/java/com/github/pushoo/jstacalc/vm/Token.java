@@ -29,4 +29,16 @@ public record Token(String value, FilePosition position) {
         this(value, new FilePosition(line, col, filepath));
     }
 
+    public String filepath() {
+        return position.filepath();
+    }
+
+    public int line() {
+        return position.line();
+    }
+
+    public int col() {
+        return position.col();
+    }
+
 }
