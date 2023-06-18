@@ -1,5 +1,8 @@
-package com.github.pushoo.jstacalc.vm;
+package com.github.pushfoo.jstacalc.tokens;
 
+import com.github.pushoo.jstacalc.tokens.FilePosition;
+import com.github.pushoo.jstacalc.tokens.Token;
+import com.github.pushoo.jstacalc.tokens.Tokenizer;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

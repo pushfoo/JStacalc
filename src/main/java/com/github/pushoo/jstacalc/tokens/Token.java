@@ -1,6 +1,4 @@
-package com.github.pushoo.jstacalc.vm;
-
-import java.io.File;
+package com.github.pushoo.jstacalc.tokens;
 
 /**
  * Track the position of a token in a file.
