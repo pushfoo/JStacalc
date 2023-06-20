@@ -1,5 +1,4 @@
 package com.github.pushoo.jstacalc.tokens;
-import com.github.pushoo.jstacalc.tokens.Token;
 import org.apache.commons.io.IOUtils;
 
 import java.io.*;
