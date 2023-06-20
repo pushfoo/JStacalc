@@ -1,4 +1,4 @@
-package com.github.pushoo.jstacalc;
+package com.github.pushfoo.jstacalc;
 
 import java.lang.reflect.Parameter;
 

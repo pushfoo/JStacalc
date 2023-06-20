@@ -1,6 +1,6 @@
-package com.github.pushoo.jstacalc.vm.exceptions;
+package com.github.pushfoo.jstacalc.vm.exceptions;
 
-import com.github.pushoo.jstacalc.tokens.Token;
+import com.github.pushfoo.jstacalc.tokens.Token;
 
 public class VMExecutionException extends VMException {
     private final Token token;

@@ -1,22 +1,23 @@
 package com.github.pushfoo.jstacalc.tokens;
 
-import com.github.pushoo.jstacalc.tokens.FilePosition;
-import com.github.pushoo.jstacalc.tokens.Token;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 class TestTokenShortestConstructor {
     Token token;
-    int   line;
-    int   col;
+    int line;
+    int col;
+
     @BeforeEach
     public void setup() {
-        line  = 10;
-        col   = 5;
+        line = 10;
+        col = 5;
         token = new Token("testValue", line, col);
     }
+
     @Test
     void filePositionAccessibleAndCorrect() {
         assertEquals(
@@ -28,8 +29,8 @@ class TestTokenShortestConstructor {
     @Test
     void setsNullFilePath() {
         assertNull(
-             token.filepath(),
-            "Expected short constructor form to set filepath to null"
+                token.filepath(),
+                "Expected short constructor form to set filepath to null"
         );
     }
 

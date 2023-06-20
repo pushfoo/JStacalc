@@ -1,4 +1,4 @@
-package com.github.pushoo.jstacalc.tokens;
+package com.github.pushfoo.jstacalc.tokens;
 
 import java.util.Objects;
 

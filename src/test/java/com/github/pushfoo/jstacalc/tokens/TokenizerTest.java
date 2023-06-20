@@ -1,11 +1,9 @@
 package com.github.pushfoo.jstacalc.tokens;
 
-import com.github.pushoo.jstacalc.tokens.FilePosition;
-import com.github.pushoo.jstacalc.tokens.Token;
-import com.github.pushoo.jstacalc.tokens.Tokenizer;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class TokenizerTest {
 
@@ -22,7 +20,7 @@ class TokenizerTest {
     }
 
     @Test
-    void processLineRaisesNullPointerExceptionOnNullLine(){
+    void processLineRaisesNullPointerExceptionOnNullLine() {
         Tokenizer t = new Tokenizer();
         assertThrows(NullPointerException.class, () -> t.processLine(null, "filepath"));
     }
@@ -39,9 +37,9 @@ class TokenizerTest {
 
         // Make sure token values are as expected
         for (int i = 0; i < tokens.length; i++) {
-            Token        token    = tokens[i];
-            String       value    = token.value();
-            FilePosition p        = token.position();
+            Token token = tokens[i];
+            String value = token.value();
+            FilePosition p = token.position();
 
             String expectedValue = String.format("%d", i + 1);
             assertEquals(

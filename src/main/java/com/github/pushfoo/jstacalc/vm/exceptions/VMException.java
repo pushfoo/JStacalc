@@ -1,4 +1,4 @@
-package com.github.pushoo.jstacalc.vm.exceptions;
+package com.github.pushfoo.jstacalc.vm.exceptions;
 
 public class VMException extends Exception {
 
