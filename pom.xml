@@ -21,6 +21,15 @@
             <artifactId>commons-io</artifactId>
             <version>2.13.0</version>
         </dependency>
+
+        <!-- StreamEx Stream extensions https://github.com/amaembo/streamex -->
+        <dependency>
+            <groupId>one.util</groupId>
+            <artifactId>streamex</artifactId>
+            <version>0.8.1</version>
+        </dependency>
+
+        <!-- JUnit 5 core elements -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
@@ -33,6 +42,15 @@
             <version>5.9.2</version>
             <scope>test</scope>
         </dependency>
+
+        <!-- ParameterizedTest and other helpful annotations -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-params</artifactId>
+            <version>5.9.2</version>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
 </project>
