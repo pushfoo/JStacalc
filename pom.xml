@@ -22,11 +22,20 @@
             <version>2.13.0</version>
         </dependency>
 
-        <!-- StreamEx Stream extensions https://github.com/amaembo/streamex -->
+        <!-- jOOQ jOOL extension for streams & tuples https://github.com/jOOQ/jOOL -->
         <dependency>
-            <groupId>one.util</groupId>
-            <artifactId>streamex</artifactId>
-            <version>0.8.1</version>
+            <groupId>org.jooq</groupId>
+            <artifactId>jool</artifactId>
+            <version>0.9.15</version>
+        </dependency>
+
+        <!-- Getter, Setter, and other code generation from annotations -->
+        <!-- https://projectlombok.org/ -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.28</version>
+            <scope>provided</scope>
         </dependency>
 
         <!-- JUnit 5 core elements -->
