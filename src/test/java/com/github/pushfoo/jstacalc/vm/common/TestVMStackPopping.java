@@ -11,7 +11,7 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 class TestVMStackPopping extends BaseVMStackTest.EmptyVMStackTest {
 
-    static Stream<Arguments> stackSizeGreaterOrEqualToNumItems() {
+    static Stream<Arguments> numItemsLessThanOrEqualToSize() {
         return Stream.of(
                 arguments(1, 1),
                 arguments(10, 5)
@@ -19,7 +19,7 @@ class TestVMStackPopping extends BaseVMStackTest.EmptyVMStackTest {
     }
 
     @ParameterizedTest
-    @MethodSource("stackSizeGreaterOrEqualToNumItems")
+    @MethodSource("numItemsLessThanOrEqualToSize")
     void givenStackHasEntries_whenPoppingWithNoArgs_OneElementPopped(
             Integer stackSize, Integer numItems
     ) {
@@ -31,7 +31,7 @@ class TestVMStackPopping extends BaseVMStackTest.EmptyVMStackTest {
     }
 
     @ParameterizedTest
-    @MethodSource("stackSizeGreaterOrEqualToNumItems")
+    @MethodSource("numItemsLessThanOrEqualToSize")
     void givenStackHasEntries_WhenPoppingWithNumItemsLessThanOrEqualToSize_PopsRequestedAmount(
             Integer stackSize, Integer numItems
     ) {

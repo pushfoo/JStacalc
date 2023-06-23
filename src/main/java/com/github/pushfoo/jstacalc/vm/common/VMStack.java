@@ -1,6 +1,9 @@
 package com.github.pushfoo.jstacalc.vm.common;
 
 import java.util.*;
+import java.util.stream.Stream;
+
+import static java.lang.Math.max;
 
 /**
  * <p>A stack object with convenience behavior & methods</p>
@@ -25,11 +28,18 @@ import java.util.*;
  */
 public class VMStack<E> extends LinkedList<E> {
 
-    public static <E> VMStack<E> copyOfRange(Collection<? extends E> coll, int from, int to, E padding) {
+    public static <E> VMStack<E> copyOfRange(
+            Collection<? extends E> coll, int from, int to, E padding
+    ) throws IndexOutOfBoundsException {
+
+        IndexOutOfBoundsException problem = boundCheckNegative(to, coll);
+        if ( Objects.nonNull(problem) ) {
+            throw problem;
+        }
+
         VMStack<E> newStack = new VMStack<E>();
         int originalSize = coll.size();
         int numFromColl  = originalSize - from;
-
         // Push the specified range onto the stack from coll
         coll
                 .stream()
@@ -38,8 +48,8 @@ public class VMStack<E> extends LinkedList<E> {
                 .forEach(newStack::push);
 
         // Pad if necessary
-        int numPaddingCopiesRequired = (to - from) - originalSize;
-        newStack.padTo(numPaddingCopiesRequired, padding);
+        int numToPadWith = max(0, to - originalSize);
+        newStack.padWith(numToPadWith, padding);
 
         return newStack;
     }
@@ -120,6 +130,23 @@ public class VMStack<E> extends LinkedList<E> {
         return paddingRequired;
     }
 
+    private static <E> IndexOutOfBoundsException boundCheckNegative(int numItemsRequested, Collection <E> source) {
+        if (numItemsRequested < 0) {
+            return new IndexOutOfBoundsException(String.format(
+                    "Can't have negative amounts (%d) of items", numItemsRequested));
+        }
+        return null;
+    }
+    private static <E> IndexOutOfBoundsException boundCheckAmountRequired(int numItemsRequested, Collection<E> source) {
+        IndexOutOfBoundsException problem = null;
+        problem = boundCheckNegative(numItemsRequested, source);
+        if (numItemsRequested > source.size()) {
+            return new IndexOutOfBoundsException(String.format(
+                    "Only have %d items, but %d were requested", source.size(), numItemsRequested));
+        }
+        return problem;
+    }
+
     /**
      * Return an exception if numItemsRequested is negative or larger than the stack size.
      *
@@ -127,15 +154,7 @@ public class VMStack<E> extends LinkedList<E> {
      * @return null, or the appropriate exception.
      */
     private IndexOutOfBoundsException boundCheckAmountRequired(int numItemsRequested) {
-        if (numItemsRequested < 0) {
-            return new IndexOutOfBoundsException(String.format(
-                    "Can't act on negative amounts of items (%d)!", numItemsRequested
-            ));
-        } else if (numItemsRequested > size()) {
-            return new IndexOutOfBoundsException(String.format(
-                    "Only have %d items, but %d were requested", size(), numItemsRequested));
-        }
-        return null;
+        return boundCheckAmountRequired(numItemsRequested, this);
     }
 
     /**
@@ -159,7 +178,7 @@ public class VMStack<E> extends LinkedList<E> {
             throw problem;
         }
         // Copy the top numItems entries to a new stack & return it
-        return VMStack.copyOfRange(this, size() - (1 + numItems), size());
+        return VMStack.copyOfRange(this, size() - numItems, size());
     }
 
     /**

@@ -37,18 +37,20 @@ class TestVMStackCreation extends BaseVMStackTest {
                 .map(t -> Arguments.of(t.v1, t.v2));
     }
 
-    //TODO: fix the underlying logic
-    //@ParameterizedTest
-    //@MethodSource("sizeAndPaddingArguments")
-    void givenStackCreatedWithCopyOf_WhenPaddingSizesNotZero_SameNumberOfNullsAddedToEndOfStack(
-        Integer stackSize, Integer paddingSize
+    @ParameterizedTest
+    @MethodSource("sizeAndPaddingArguments")
+    void givenStackCreatedWithCopyOf_WhenLengthGreaterThanOriginal_SameNumberOfNullsAddedToEndOfStack(
+        Integer initialStackSize, Integer paddingSize
     ) {
-        List<Integer> l = rangeList(stackSize);
-        int sizeWithPadding = stackSize + paddingSize;
+        List<Integer> l = rangeList(initialStackSize);
+        int sizeWithPadding = initialStackSize + paddingSize;
+
         VMStack<Integer> testOperationStack = VMStack.copyOf(l, sizeWithPadding);
         assertIterableEquals(
-                Seq.of((Object) null).cycle(paddingSize),
-                testOperationStack.stream().skip(stackSize).toList());
+                // Important: Seq.cycle might ignore passed limits under some circumstances!
+                // This may be null-specific, and should be investigated at a later time.
+                Seq.of((Integer) null).cycle().limit(paddingSize),
+                testOperationStack.stream().skip(initialStackSize).toList());
     }
 
     @Test
