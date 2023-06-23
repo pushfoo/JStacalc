@@ -1,7 +1,5 @@
 package com.github.pushfoo.jstacalc.vm.common;
 
-import org.jooq.lambda.Seq;
-
 import java.util.*;
 
 /**
@@ -33,8 +31,10 @@ public class VMStack<E> extends LinkedList<E> {
         int numFromColl  = originalSize - from;
 
         // Push the specified range onto the stack from coll
-        Seq.of(coll)
-                .slice(from, numFromColl)
+        coll
+                .stream()
+                .skip(from)
+                .limit(numFromColl)
                 .forEach(newStack::push);
 
         // Pad if necessary
