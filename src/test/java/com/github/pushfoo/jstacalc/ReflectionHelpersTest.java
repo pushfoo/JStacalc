@@ -7,7 +7,6 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.ArgumentsProvider;
 import org.junit.jupiter.params.provider.ArgumentsSource;
 
-import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Parameter;
 import java.util.stream.Stream;
@@ -98,7 +97,6 @@ class ReflectionHelpersTest {
     }
 
     static class MixedTypesArgsVoidReturnMethods extends StaticMethodUtility {
-        final public static Method[] declaredMethods = MixedTypesArgsVoidReturnMethods.class.getDeclaredMethods();
 
         // Ignore what IntelliJ and other linters say: these are used by reflection
         public static void stringArg(String s) {
@@ -115,7 +113,6 @@ class ReflectionHelpersTest {
     }
 
     static class ZeroArgsVoidReturnMethods extends StaticMethodUtility {
-        final public static Method[] declaredMethods = ZeroArgsVoidReturnMethods.class.getDeclaredMethods();
 
         // Ignore what IntelliJ and other linters say: these are used by reflection
         public static void zeroArgs() {
