@@ -1,5 +1,7 @@
 package com.github.pushfoo.jstacalc;
 
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.lang.reflect.Parameter;
 
 public class ReflectionHelpers {
@@ -51,5 +53,16 @@ public class ReflectionHelpers {
      */
     public static boolean hasOnlyIntArgs(Parameter[] parameters) {
         return hasOnlyArgsOfType(parameters, int.class);
+    }
+
+    /**
+     * <p>Returns true if the passed method is static.</p>
+     *
+     * <p>This is a helper for stream filtering.</p>
+     * @param method A method object
+     * @return whether the passed method is static.
+     */
+    public static boolean isStatic(Method method) {
+       return Modifier.isStatic(method.getModifiers());
     }
 }

@@ -1,5 +1,6 @@
 package com.github.pushfoo.jstacalc;
 
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -11,12 +12,27 @@ import java.lang.reflect.Modifier;
 import java.lang.reflect.Parameter;
 import java.util.stream.Stream;
 
-import static com.github.pushfoo.jstacalc.ReflectionHelpers.hasOnlyArgsOfType;
-import static com.github.pushfoo.jstacalc.ReflectionHelpers.hasOnlyIntArgs;
+import static com.github.pushfoo.jstacalc.ReflectionHelpers.*;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ReflectionHelpersTest {
+
+    @Test
+    void isStaticCalled_whenStaticMethodIsArgument_returnsTrue() throws NoSuchMethodException {
+        assertTrue(isStatic(isStaticTestHelper.class.getMethod("staticMethod")));
+    }
+
+    @Test
+    void isStaticCalled_whenInstanceMethodIsArgument_returnsFalse() throws NoSuchMethodException {
+        assertFalse(isStatic(isStaticTestHelper.class.getMethod("instanceMethod")));
+    }
+
+    static class isStaticTestHelper {
+        public static void staticMethod() {}
+        public        void instanceMethod() {}
+    }
+
     @ParameterizedTest
     @ArgumentsSource(AllIntArgsMethods.class)
     void hasOnlyArgsOfTypeCalled_whenParametersAllInts_returnsTrue(Parameter[] params) {
