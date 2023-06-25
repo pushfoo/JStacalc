@@ -1,6 +1,6 @@
 package com.github.pushfoo.jstacalc.vm;
 
-import com.github.pushfoo.jstacalc.vm.words.defs.NameOverride;
+import com.github.pushfoo.jstacalc.vm.words.defs.BuiltIn;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.ArgumentsProvider;
@@ -26,19 +26,19 @@ public class CommonMethodSources {
     public static class StaticMethodsWithAllIntParams extends StaticMethodTestArgumentsProvider {
 
         // Ignore what IntelliJ and other linters say: these are used by reflection
-        @NameOverride("one")
+        @BuiltIn(name="one")
         public static void hasOneIntArgs(int a) {
         }
 
-        @NameOverride("two")
+        @BuiltIn(name="two")
         public static void hasTwoIntArgs(int a, int b) {
         }
 
-        @NameOverride("three")
+        @BuiltIn(name="three")
         public static void hasThreeIntArgs(int a, int b, int c) {
         }
 
-        @NameOverride("five")
+        @BuiltIn(name="five")
         public static int hasFiveArgsReturnsInt(int a, int b, int c, int d, int e) {
             return 1;
         }
