@@ -11,7 +11,7 @@ import static org.jooq.lambda.Seq.crossJoin;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
-class VMExceptionHelpersTest {
+class ExceptionMessageBuilderStaticHelpersTest {
     static final String[] wrappings = { "LONG", "\"", null};
     static final String[] inners = {"inner", "\"", null};
 
@@ -25,7 +25,7 @@ class VMExceptionHelpersTest {
     void givenWrapInnerBeforeAfterCalled_withStringOrNullArguments_resultIsProperlyFormatted(
             String inner, String before, String after, String expected
     ) {
-        String result = VMException.wrap(inner, before, after);
+        String result = ExceptionMessageBuilder.wrap(inner, before, after);
         assertEquals(expected, result);
     }
 
@@ -39,7 +39,7 @@ class VMExceptionHelpersTest {
     void givenWrapInnerWrappingVersionCalled_withStringOrNullArguments_resultIsProperlyFormatted(
             String inner, String wrapping, String expected
     ) {
-        String result = VMException.wrap(inner, wrapping);
+        String result = ExceptionMessageBuilder.wrap(inner, wrapping);
         assertEquals(expected, result);
     }
 
@@ -53,7 +53,7 @@ class VMExceptionHelpersTest {
     void givenSinglequoteCalled_withStringOrNullArgument_resultIsProperlyFormatted(
             String inner, String expected
     ) {
-        String result = VMException.singlequote(inner);
+        String result = ExceptionMessageBuilder.singlequote(inner);
         assertEquals(result, expected);
     }
 
@@ -63,7 +63,7 @@ class VMExceptionHelpersTest {
             String inner, String before, String after, String expected
     ) {
         StringBuilder builder = new StringBuilder();
-        VMException.appendToStringBuilder(builder, Stream.of(before, inner, after));
+        ExceptionMessageBuilder.appendToStringBuilder(builder, Stream.of(before, inner, after));
         assertEquals(expected, builder.toString());
     }
 
@@ -73,7 +73,7 @@ class VMExceptionHelpersTest {
             String inner, String before, String after, String expected
     ) {
         StringBuilder builder = new StringBuilder();
-        VMException.appendToStringBuilder(builder, before, inner, after);
+        ExceptionMessageBuilder.appendToStringBuilder(builder, before, inner, after);
         assertEquals(expected, builder.toString());
     }
 }
