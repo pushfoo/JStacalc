@@ -45,7 +45,7 @@ public class VMStack<E> extends LinkedList<E> {
                 .stream()
                 .skip(from)
                 .limit(numFromColl)
-                .forEach(newStack::push);
+                .forEachOrdered(newStack::push);
 
         // Pad if necessary
         int numToPadWith = max(0, to - originalSize);
