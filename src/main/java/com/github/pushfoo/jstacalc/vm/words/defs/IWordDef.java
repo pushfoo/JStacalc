@@ -9,20 +9,19 @@ import static java.util.Objects.nonNull;
 
 
 public interface IWordDef {
-    final   static int     UNKNOWN = -1;
-    public  int            getNumRequired();
-    public  int            getNumPushed();
-    public  int            getNumPopped();
-    public  String         getName();
-
-    public  String         getOriginalName();
+    int     UNDEFINED  = -1;
+    int     getNumPushed();
+    int     getNumPopped();
+    String  getName();
+    String  getHelpText();
+    String  getOriginalName();
 
     /**
      * References to child word defs, it any.
      *
      * @return null or a List of word defs.
      */
-    default  public  List<IWordDef> getContents() {
+    default List<IWordDef> getContents() {
         return null;
     }
 
@@ -31,22 +30,26 @@ public interface IWordDef {
      *
      * @return a Method object
      */
-    default  public  Method         getBoundJavaMethod() {
+    default Method         getBoundJavaMethod() {
         return null;
     }
 
-    default  public  boolean        isBuiltIn()   { return nonNull(getBoundJavaMethod()); }
-    default  public  FilePosition   getPosition() { return null; }
-    default  public  int            size()        { return 1;    }
-
-    default  public  boolean        isNumPushedKnown() {
-        return getNumPushed() <= UNKNOWN;
+    default boolean        isBuiltIn() {
+        return nonNull(getBoundJavaMethod());
+    }
+    default FilePosition   getPosition() {
+        return null;
+    }
+    default int            size() {
+        return 1;
     }
 
-    default  public  boolean        isNumRequiredKnown() {
-        return getNumRequired() <= UNKNOWN;
+    default boolean        isNumPushedKnown() {
+        return getNumPushed() >= 0;
     }
-    default  public  boolean        isNumPoppedKnown() {
-        return getNumPopped() <= UNKNOWN;
+
+    default boolean        isNumPoppedKnown() {
+        return getNumPopped() >= 0;
     }
+
 }

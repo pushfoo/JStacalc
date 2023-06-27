@@ -5,10 +5,12 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import static com.github.pushfoo.jstacalc.vm.words.defs.IWordDef.UNKNOWN;
+import static com.github.pushfoo.jstacalc.vm.words.defs.IWordDef.UNDEFINED;
 
 /**
- * Label a static method or a field as a built-in.
+ * <p>Mandatory label to for static methods which are used as built-ins.</p>
+ *
+ * <p>pops and pushes must be set to either NUM_VARIES or an int value >= 0</p>
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD, ElementType.FIELD})
@@ -16,7 +18,7 @@ public @interface BuiltIn {
     // nulls are not permitted for default values, so we have to use some dirty tricks
     String name()     default "";
 
-    int    pops()     default UNKNOWN;
-    int    pushes()   default UNKNOWN;
-    String comment()  default "";
+    int    pops()     default UNDEFINED;
+    int    pushes()   default UNDEFINED;
+    String helpText()  default "";
 }

@@ -1,8 +1,7 @@
 package com.github.pushfoo.jstacalc.vm;
 
 public enum VMRunStateEnum {
-    STOPPED,
+    PAUSED,
     RUNNING,
-    ERROR,
     HALTED
 }
