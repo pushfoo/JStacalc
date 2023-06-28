@@ -3,30 +3,34 @@ package com.github.pushfoo.jstacalc.vm;
 import com.github.pushfoo.jstacalc.vm.common.VMStack;
 import com.github.pushfoo.jstacalc.vm.words.IExecutionPosition;
 import com.github.pushfoo.jstacalc.vm.words.dictionary.IVMDictionary;
+import com.github.pushfoo.jstacalc.vm.words.dictionary.VMLinearDictionary;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.experimental.SuperBuilder;
 
 import java.util.Collection;
 
 @AllArgsConstructor
-@SuperBuilder
 public class VMCore {
 
     @Getter @Setter
-    @Builder.Default
-    VMRunStateEnum                           runState = VMRunStateEnum.PAUSED;
-    private VMStack<Integer>                 dataStack;
-    private VMStack<IExecutionPosition>       returnStack;
-    IVMDictionary                            dictionary;
+    VMRunStateEnum                        runState;
+    protected VMStack<Integer>            dataStack;
+    protected VMStack<IExecutionPosition> returnStack;
+    protected IVMDictionary               dictionary;
 
-    public VMCore() {
+    public VMCore(VMRunStateEnum runState) {
         dataStack   = new VMStack<>();
         returnStack = new VMStack<>();
+        dictionary  = new VMLinearDictionary();
     }
 
+    public VMCore() {
+        this(VMRunStateEnum.PAUSED);
+    }
+
+    /* TODO: refactor this ugliness once we have something running...
+       it's only here because it makes the logic for built-in methods much simpler. */
     public Integer pop() {
         return dataStack.pop();
     }

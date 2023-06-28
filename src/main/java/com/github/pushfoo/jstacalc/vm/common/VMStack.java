@@ -1,7 +1,8 @@
 package com.github.pushfoo.jstacalc.vm.common;
 
 import java.util.*;
-import java.util.stream.Stream;
+import java.util.function.BiFunction;
+import java.util.function.Predicate;
 
 import static java.lang.Math.max;
 
@@ -259,4 +260,54 @@ public class VMStack<E> extends LinkedList<E> {
         }
     }
 
+    /**
+     * <p>A convenience helper for reverse iteration due to access being O(N) on this structure.</p>
+     *
+     * <p>This is like a more flexible functional version of Collection.lastIndexOf. The transformation
+     * BiFunction must accept (-1, null) as arguments to account for the possibility of not finding an
+     * element matching the passed predicate.</p>
+     *
+     * @param predicate      A functional Predicate describing what to look for.
+     * @param transformation A BiFunction supporting (-1, null) as arguments describing a failed search
+     * @return The transformation applied to either the index & value of the first match, or (-1, null) if it failed
+     * @param <R> the return type expected from the transformation
+     */
+    public <R> R getTransformOfLastIndexAndElementMatching(
+            Predicate<E> predicate, BiFunction<Integer, E, R> transformation
+    ) {
+        Iterator<E> reverse = descendingIterator();
+        int currentIndex = this.size() - 1;
+        E   currentValue = null;
+
+        while ( descendingIterator().hasNext() ) {
+            currentValue = reverse.next();
+            if (predicate.test(currentValue) ) {
+                break;
+            }
+            currentIndex--;
+        }
+        // Use -1, null as arguments to transformation when not found
+        if (currentIndex < 0) currentValue = null;
+        return transformation.apply(currentIndex, currentValue);
+    }
+
+    /**
+     * <p>A functional equivalent of Collection.lastIndexOf matching a predicate instead of a value</p>
+     *
+     * @param predicate The predicate to search for a match to.
+     * @return The last index matching the value.
+     */
+    public int lastIndexMatching(Predicate<E> predicate) {
+        return getTransformOfLastIndexAndElementMatching(predicate, (Integer i, E element) -> i);
+    }
+
+    /**
+     * <p>Get the last element in the collection matching the passed predicate</p>
+     *
+     * @param predicate The predicate to search for a match to.
+     * @return The last index matching the value.
+     */
+    public E lastItemMatching(Predicate<E> predicate) {
+        return getTransformOfLastIndexAndElementMatching(predicate, (Integer i, E element) -> element);
+    }
 }
