@@ -1,8 +1,6 @@
 package com.github.pushfoo.jstacalc.vm.exceptions;
 
-import com.github.pushfoo.jstacalc.tokens.FilePosition;
 import com.github.pushfoo.jstacalc.tokens.Token;
-import lombok.Getter;
 
 
 public class VMExecutionException extends VMException {
@@ -30,6 +28,15 @@ public class VMExecutionException extends VMException {
 
     VMExecutionException(Token token, Throwable cause) {
         this(new ExceptionMessageBuilder(), token, cause);
+    }
+
+    protected VMExecutionException(ExceptionMessageBuilder builder, Token token, String message) {
+        super(builder.prependLocation(token).prepend(message));
+        this.token = token;
+    }
+
+    public VMExecutionException(Token token, String message) {
+        this(new ExceptionMessageBuilder(), token, message);
     }
 
 }
