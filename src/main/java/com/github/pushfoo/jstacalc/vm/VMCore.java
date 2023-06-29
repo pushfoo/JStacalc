@@ -45,9 +45,15 @@ public class VMCore {
     public int dataStackSize() {
         return dataStack.size();
     }
+
     public void push(Collection<Integer> data) {
         dataStack.push(data);
     }
+
+    public void push(Integer... integers) {
+        dataStack.push(integers);
+    }
+
     public Integer peek() {
         return dataStack.peek();
     }

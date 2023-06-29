@@ -4,6 +4,7 @@ import org.junit.jupiter.params.provider.Arguments;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.List;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
@@ -32,7 +33,7 @@ public class Helpers {
                 .filter(filterPredicate)
                 .map(transformation);
     }
-    
+
     /**
      * Extract static methods which match a predicate as arguments from the passed classes.
      *
@@ -48,6 +49,9 @@ public class Helpers {
                 filterPredicate,
                 Arguments::of,
                 classes);
+    }
+    public static <E> Arguments listToArguments(List<E> list) {
+       return Arguments.of(list.toArray());
     }
 
     /**
