@@ -9,6 +9,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 @AllArgsConstructor
 public class VMCore {
@@ -44,6 +46,10 @@ public class VMCore {
     }
     public int dataStackSize() {
         return dataStack.size();
+    }
+
+    public List<Integer> dataStackState() {
+        return Collections.unmodifiableList(dataStack);
     }
 
     public void push(Collection<Integer> data) {
